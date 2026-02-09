@@ -1,0 +1,388 @@
+Metadata-Version: 2.4
+Name: loglens
+Version: 0.1.0
+Summary: AI-Powered Security Log Analysis - Natural language queries for security logs
+Author-email: HUMYNX <contact@humynx.com>
+Maintainer-email: HUMYNX <contact@humynx.com>
+License: Apache-2.0
+Project-URL: Homepage, https://github.com/humynx/loglens
+Project-URL: Documentation, https://github.com/humynx/loglens#readme
+Project-URL: Repository, https://github.com/humynx/loglens
+Project-URL: Issues, https://github.com/humynx/loglens/issues
+Keywords: security,log-analysis,cybersecurity,llm,natural-language,threat-hunting,siem,anomaly-detection,mitre-attack
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Security
+Classifier: Topic :: System :: Logging
+Classifier: Topic :: System :: Monitoring
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.28.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Provides-Extra: ml
+Requires-Dist: scikit-learn>=1.0.0; extra == "ml"
+Requires-Dist: numpy>=1.21.0; extra == "ml"
+Provides-Extra: all
+Requires-Dist: loglens[dev,ml]; extra == "all"
+Dynamic: license-file
+
+# 🔍 LogLens
+
+**AI-Powered Security Log Analysis**
+
+Query your security logs with natural language. No query syntax to learn. No configuration required.
+
+[![PyPI version](https://badge.fury.io/py/loglens.svg)](https://pypi.org/project/loglens/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Install
+pip install loglens
+
+# Query logs with natural language
+loglens query "show me failed logins from admin users" /var/log/auth.log
+
+# Threat hunt
+loglens hunt /var/log/
+
+# Interactive investigation
+loglens investigate /var/log/syslog
+```
+
+---
+
+## ✨ Features
+
+### 🗣️ Natural Language Queries
+
+Ask questions in plain English:
+
+```bash
+loglens query "what did user jsmith do yesterday?" /var/log/
+loglens query "find PowerShell commands that download files" events.log
+loglens query "show suspicious network connections to external IPs" firewall.log
+```
+
+### 🔎 Automatic Log Parsing
+
+Works with **any log format** - no configuration needed:
+
+- Syslog, JSON, CSV, CEF, EVTX
+- AWS CloudTrail, Azure, GCP
+- Windows Event Logs, Linux auth.log
+- Custom application logs
+- ...and more
+
+### 🎯 Security-Native Analysis
+
+Built for security teams:
+
+- **Threat Detection**: Identifies suspicious activity
+- **MITRE ATT&CK Mapping**: Maps findings to techniques
+- **Behavioral Baselines**: Learns what's normal in YOUR environment
+- **Attack Chain Detection**: Correlates events into attack narratives
+
+### 🔒 Privacy-First
+
+- **Runs 100% locally** with Ollama
+- **Zero data leaves your machine**
+- No cloud APIs required (optional Groq/OpenAI for enhanced capabilities)
+
+---
+
+## 📦 Installation
+
+### Basic Installation
+
+```bash
+pip install loglens
+```
+
+### With ML Extensions
+
+```bash
+pip install loglens[ml]
+```
+
+### From Source
+
+```bash
+git clone https://github.com/humynx/loglens
+cd loglens
+pip install -e .
+```
+
+### LLM Setup (Recommended)
+
+For best results, install [Ollama](https://ollama.ai) with a local model:
+
+```bash
+# Install Ollama (macOS)
+brew install ollama
+
+# Or download from https://ollama.ai
+
+# Pull a model
+ollama pull llama3.2
+
+# Start Ollama
+ollama serve
+```
+
+LogLens will automatically use Ollama if available.
+
+---
+
+## 🎮 Usage
+
+### Command Line
+
+```bash
+# Query logs with natural language
+loglens query "show me failed SSH attempts" /var/log/auth.log
+
+# Analyze logs for threats
+loglens analyze /var/log/syslog
+
+# Threat hunting
+loglens hunt /var/log/ --output results.json
+
+# Interactive investigation
+loglens investigate /var/log/auth.log
+
+# Parse and show structure
+loglens parse /var/log/auth.log --max-lines 5
+
+# Get summary statistics
+loglens summary /var/log/
+```
+
+### Python API
+
+```python
+from loglens import LogLensEngine
+
+# Initialize engine
+engine = LogLensEngine()
+
+# Load logs
+engine.load("/var/log/auth.log")
+
+# Query with natural language
+result = engine.query("show me failed logins from external IPs")
+print(result.result_summary)
+for match in result.matches[:5]:
+    print(match)
+
+# Threat hunt
+hunt_result = engine.hunt()
+print(f"Found {hunt_result.suspicious_events} suspicious events")
+
+# Interactive mode
+engine.interactive()
+```
+
+### Quick Analysis
+
+```python
+from loglens import analyze, query
+
+# Quick analysis
+result = analyze("/var/log/auth.log")
+
+# Quick query
+result = query(my_logs, "find admin activity after hours")
+```
+
+---
+
+## 🔬 How It Works
+
+### Zero-Hardcoding Architecture
+
+Traditional log analysis tools rely on:
+- Regex patterns for parsing
+- Signature rules for detection
+- Predefined queries
+
+**LogLens is different.** It uses LLMs to:
+
+1. **Understand** your query semantically
+2. **Parse** any log format automatically
+3. **Analyze** events for security implications
+4. **Learn** patterns from your data
+
+This means:
+- ✅ No configuration required
+- ✅ Works with any log format
+- ✅ Detects novel attacks (not just known signatures)
+- ✅ Gets smarter over time
+
+### Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Natural Language Query                   │
+│              "show me failed logins from admin"              │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      Query Engine                            │
+│   LLM understands intent → maps to fields → builds filters  │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                      Log Parser                              │
+│    Auto-detects format → extracts fields → normalizes       │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   Security Analyzer                          │
+│    Assesses risk → maps to MITRE → generates insights       │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Pattern Learner                           │
+│     Builds baselines → detects anomalies → improves         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📊 Example Output
+
+```
+$ loglens query "show me failed logins in the last hour" /var/log/auth.log
+
+  ✓ Loaded 12,847 logs
+
+Query Interpretation
+  Looking for authentication failures within the last 60 minutes
+
+Results
+  Total matches: 47
+  Returned: 20
+
+  Found 47 failed login attempts in the last hour.
+  
+  89% originated from IP 185.220.101.34 (known Tor exit node)
+  Targeted accounts: admin (23), root (12), svc_backup (8)
+  Peak activity: 03:42 AM (23 attempts in 5 minutes)
+
+Matching Events
+  ▶ 2024-01-15T03:42:17 Failed password for admin from 185.220.101.34 [HIGH]
+  ▶ 2024-01-15T03:42:19 Failed password for admin from 185.220.101.34 [HIGH]
+  ▶ 2024-01-15T03:42:21 Failed password for root from 185.220.101.34 [HIGH]
+  ...
+
+Insights
+  • Brute force attack pattern detected from Tor exit node
+  • Attack targeted privileged accounts
+  • Timing suggests automated attack tool
+
+Suggested Follow-up Queries
+  1. show successful logins from 185.220.101.34
+  2. what else happened at 3:42 AM
+  3. show all Tor activity this week
+```
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables
+
+```bash
+# Ollama (local, default)
+export OLLAMA_URL="http://localhost:11434"
+
+# Groq (fast cloud, free tier available)
+export GROQ_API_KEY="your-key"
+
+# OpenAI (fallback)
+export OPENAI_API_KEY="your-key"
+```
+
+### LLM Priority
+
+LogLens tries LLMs in this order:
+1. **Ollama** (local, free, private)
+2. **Groq** (fast, free tier)
+3. **OpenAI** (fallback)
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+```bash
+# Setup development environment
+git clone https://github.com/humynx/loglens
+cd loglens
+pip install -e ".[dev]"
+
+# Run tests
+pytest
+
+# Format code
+black loglens/
+isort loglens/
+```
+
+---
+
+## 📄 License
+
+Apache 2.0 - See [LICENSE](LICENSE) for details.
+
+---
+
+## 🙏 Acknowledgments
+
+LogLens is built on the shoulders of giants:
+- [Ollama](https://ollama.ai) - Local LLM inference
+- [LLaMA](https://ai.meta.com/llama/) - Foundation model
+- The security research community
+
+---
+
+## 📬 Contact
+
+- **Website**: [humynx.com](https://humynx.com)
+- **Email**: contact@humynx.com
+- **Twitter**: [@humynx](https://twitter.com/humynx)
+
+---
+
+<p align="center">
+  <b>Built with ❤️ by HUMYNX</b><br>
+  <i>Making security accessible to everyone</i>
+</p>
